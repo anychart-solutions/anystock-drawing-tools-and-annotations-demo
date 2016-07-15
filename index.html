@@ -4,8 +4,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="AnyStock offers a large set of features, that allow you to build your online financial portal and one of the most exciting features is the ability to draw/display on the chart so called drawing tools or, as they are called in our documentation documentation and settings, annotations.">
+    <meta name="keywords" content="AnyChart,AnyStock,Annotation,Drawing Tools">
+    <meta name="author" content="anychart.com">
+
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Bootstrap 101 Template</title>
+    <title>AnyStock - Drawing Tools and Annotations Demo</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -25,6 +30,11 @@
             border: 1px solid #000;
             background-color: #fff;
             margin: 2px;
+        }
+
+        .colorpickerplus-custom-colors,
+        .colorpickerplus .input-group {
+            display: none;
         }
 
         .dropdown-color-fill-icon {
@@ -61,7 +71,7 @@
 <body>
 <div class="toolbar">
     <div class="btn-group">
-        <button type="button" class="btn btn-default" id="color-picker"><span class="color-fill-icon dropdown-color-fill-icon" style="background-color:#000;"></span>&nbsp;<b class="caret"></b></button>
+        <button type="button" class="btn btn-default" id="color-picker"><span class="color-fill-icon dropdown-color-fill-icon" style="background-color:#e06666;"></span>&nbsp;<b class="caret"></b></button>
     </div>
 
     <div class="btn-group">
@@ -96,6 +106,10 @@
         <button data-annotation-type="marker" data-marker-type="arrowLeft" data-marker-anchor="left" type="button" class="btn btn-default" aria-label="Center Align"><i class="ac ac-arrow-left-square" aria-hidden="true"></i></button>
         <button data-annotation-type="marker" data-marker-type="arrowRight" data-marker-anchor="right" type="button" class="btn btn-default" aria-label="Center Align"><i class="ac ac-arrow-right-square" aria-hidden="true"></i></button>
     </div>
+
+    <div class="btn-group">
+        <button data-action-type="removeAllAnnotations" type="button" class="btn btn-default" aria-label="Center Align"><i class="ac ac-remove-thin" aria-hidden="true"></i></button>
+    </div>
 </div>
 <div id="chart-container"></div>
 
@@ -110,8 +124,8 @@
 <script src="https://cdn.anychart.com/csv-data/msft-daily-short.js"></script>
 
 <script>
-    var selectedColor;
     var chart;
+    var annotationsColor;
     $(function() {
         // page UI elements
         createPageColorPicker();
@@ -155,13 +169,15 @@
         chart.plot(0).grid(1).layout("v");
 
         // set chart padding
-        chart.padding(5, 50, 5, 5);
+        chart.padding(5, 30, 5, 5);
 
         // add annotation items in context menu
         chart.contextMenu().itemsFormatter(contextMenuItemsFormatter);
 
         // use annotation events to update application UI elements
         chart.listen("annotationDrawingFinish", onAnnotationDrawingFinish);
+        chart.listen("annotationSelect", onAnnotationSelect);
+
 
         // set container id for the chart
         chart.container("chart-container");
@@ -169,7 +185,7 @@
         // initiate chart drawing
         chart.draw();
 
-        $('.btn').click(function(evt) {
+        $('.btn[data-annotation-type]').click(function(evt) {
             var $target = $(evt.currentTarget);
             var active = $target.hasClass('active');
             if (active) {
@@ -183,18 +199,31 @@
                     var markerAnchor = $target.attr('data-marker-anchor');
                     var drawingSettings = {
                         type: type,
+                        color: annotationsColor,
                         markerType: markerType,
-                        anchor: markerAnchor,
-                        color: selectedColor
+                        anchor: markerAnchor
+
                     };
                     chart.annotations().startDrawing(drawingSettings);
                 }
             }
         });
 
+
+        $('.btn[data-action-type]').click(function(evt) {
+            var $target = $(evt.currentTarget);
+            $target.blur();
+            var type = $target.attr('data-action-type');
+            switch (type) {
+                case 'removeAllAnnotations':
+                    removeAllAnnotation();
+                    break;
+            }
+        });
+
         $('html').keyup(function(e) {
             if (e.keyCode == 8) {
-                if (!removeSelectedAnnotation()) removeAllAnnotation();
+                removeSelectedAnnotation();
             }
         })
     });
@@ -204,7 +233,13 @@
         var colorPicker = $('#color-picker');
         colorPicker.colorpickerplus();
         colorPicker.on('changeColor', function(e, color) {
-            selectedColor = color;
+            // set default color for annotations using global theme
+            annotationsColor = color;
+
+            // update color of selected annotation if any
+            var annotation = chart.annotations().getSelectedAnnotation();
+            if (annotation) annotation.color(color);
+
             if (color == null) {
                 $('.color-fill-icon', $(this)).addClass('colorpicker-color');
             } else {
@@ -228,6 +263,12 @@
 
     function onAnnotationDrawingFinish() {
         setToolbarButtonActive(null);
+    }
+
+    function onAnnotationSelect(evt) {
+        var annotation = evt.annotation;
+        var color = annotation.color();
+        $('#color-picker .color-fill-icon').css('background-color', color);
     }
 
     function contextMenuItemsFormatter(items) {
