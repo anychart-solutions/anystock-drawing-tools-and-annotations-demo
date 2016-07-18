@@ -4,9 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <meta name="description" content="AnyStock offers a large set of features, that allow you to build your online financial portal and one of the most exciting features is the ability to draw/display on the chart so called drawing tools or, as they are called in our documentation documentation and settings, annotations.">
-    <meta name="keywords" content="AnyChart,AnyStock,Annotation,Drawing Tools">
+    <meta name="description" content="AnyStock offers a large set of features that allow you to build your online financial portal and one of the most exciting features is the ability to draw/display on the chart so called drawing tools or, as they are called in our documentation documentation and settings, annotations.">
+    <meta name="keywords" content="AnyChart,AnyStock,Annotation,Drawing Tools,Technical Analysis,Security Analysis">
     <meta name="author" content="anychart.com">
 
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
@@ -130,7 +131,7 @@
         // page UI elements
         createPageColorPicker();
 
-        // data have been taken from https://cdn.anychart.com/csv-data/msft-daily-short.js
+        // data from https://cdn.anychart.com/csv-data/msft-daily-short.js
         var data = get_msft_daily_short_data();
 
         // Create new chart object.
@@ -177,7 +178,6 @@
         // use annotation events to update application UI elements
         chart.listen("annotationDrawingFinish", onAnnotationDrawingFinish);
         chart.listen("annotationSelect", onAnnotationSelect);
-
 
         // set container id for the chart
         chart.container("chart-container");
