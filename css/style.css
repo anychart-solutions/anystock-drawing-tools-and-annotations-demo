@@ -1,0 +1,314 @@
+.color-fill-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #000;
+    background-color: #fff;
+    margin: 2px;
+}
+
+.colorpickerplus-custom-colors,
+.colorpickerplus .input-group {
+    display: none;
+}
+
+.dropdown-color-fill-icon {
+    position: relative;
+    float: left;
+    margin-left: 0;
+    margin-right: 0
+}
+
+.title-drawing-tools {
+    display: none;
+}
+
+.text-drawing-tools {
+    display: none;
+    max-width: 1080px;
+    margin-bottom: 20px;
+}
+
+#chart-container {
+    height: 650px;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.container-drawing-tools #chart-container {
+    position: absolute;
+    margin-top: 0;
+    top: 52px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: auto;
+}
+
+.drawing-tools-solo.container {
+    margin-top: 25px;
+}
+
+.container-drawing-tools .drawing-tools-solo {
+    margin: 0;
+}
+
+* {
+    outline: none !important;
+}
+
+.select > .btn {
+    font-weight: 400;
+    border-color: #c5c8d1;
+    background: #fff;
+}
+
+.bootstrap-select > .btn {
+    width: 100%;
+    padding-right: 25px;
+}
+
+.error .bootstrap-select .btn {
+    border: 1px solid #b94a48;
+}
+
+.control-group.error .bootstrap-select .dropdown-toggle {
+    border-color: #b94a48;
+}
+
+.bootstrap-select.fit-width {
+    width: auto !important;
+}
+
+.bootstrap-select.form-control {
+    margin-bottom: 0;
+    padding: 0;
+}
+
+.bootstrap-select .dropdown-toggle {
+    height: 34px;
+    padding: 8px 16px;
+}
+
+.filter-option {
+    font-size: 14px;
+    float: left;
+}
+
+.btn-group-container {
+    display: inline-block;
+}
+
+.toolbar {
+    float: left;
+}
+
+.toolbar > .select-container {
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.select .ac {
+    margin-right: 5px;
+    top: -1px;
+}
+
+.bootstrap-select .dropdown-toggle:focus {
+    outline: none !important;
+    outline-offset: 0 !important;
+}
+
+.btn-group-vertical > .btn,
+.btn-group > .btn {
+    margin-left: -1px;
+}
+
+.btn-group .select.select-marker-size {
+    margin-left: -5px !important;
+}
+
+.btn-group .select {
+    margin-left: -1px !important;
+}
+
+.select-marker-size[disabled="disabled"] > .btn:first-child {
+    opacity: 0.75;
+    cursor: not-allowed;
+}
+
+.select-marker-size[disabled="disabled"] .btn.active,
+.select-marker-size[disabled="disabled"]  .btn:active {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+
+@media (min-width: 768px) {
+    .container {
+        width: 100%;
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        width: 970px;
+    }
+}
+
+@media (max-width: 1600px) {
+    .container.drawing-tools-solo .btn-group-container > .btn-group {
+        margin-bottom: 5px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        width: 1170px;
+    }
+}
+
+@media (min-width: 1660px) {
+    .container {
+        width: 1660px;
+    }
+}
+
+@media (max-width: 1200px) {
+    #chart-container {
+        height: 500px;
+    }
+}
+
+@media (max-width: 992px) {
+    #chart-container {
+        height: 450px;
+    }
+}
+
+@media (max-width: 768px) {
+    #chart-container {
+        height: 350px;
+    }
+
+    .btn-group-container > .btn-group {
+        margin-bottom: 5px;
+    }
+}
+
+/*Loader------------------------------------------------------------------------------------------------------------------------------------*/
+.anychart-loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background: #fff;
+}
+
+.anychart-loader .rotating-cover {
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    top: 50%;
+    margin-top: -35px;
+    left: 50%;
+    margin-left: -35px;
+}
+
+.anychart-loader .rotating-plane {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 20%;
+    border: 5px solid #1c75ba;
+    margin: 0 auto;
+    position: relative;
+    -webkit-animation: rotateplane 3s infinite;
+    animation: rotateplane 3s infinite;
+}
+
+.anychart-loader .chart-row {
+    position: absolute;
+    top: 10px;
+    bottom: 0;
+    left: 10px;
+    right: 10px;
+    letter-spacing: -3px;
+    line-height: 0;
+    font-size: 0;
+    white-space: nowrap;
+}
+
+.anychart-loader .chart-row .chart-col {
+    display: inline-block;
+    width: 25%;
+    height: 90%;
+    background: #000;
+    margin: 0 12.5% 0 0;
+    vertical-align: bottom;
+}
+
+.anychart-loader .chart-row .chart-col.green {
+    background: #26a957;
+    height: 50%;
+    -webkit-animation: blinkplane 1.5s infinite;
+    animation: blinkplane 1.5s infinite;
+}
+
+.anychart-loader .chart-row .chart-col.orange {
+    background: #ff8207;
+    height: 70%;
+    -webkit-animation: blinkplane 1.5s infinite 0.15s;
+    animation: blinkplane 1.5s infinite 0.25s;
+
+}
+
+.anychart-loader .chart-row .chart-col.red {
+    background: #f0402e;
+    height: 90%;
+    -webkit-animation: blinkplane 1.5s infinite 0.3s;
+    animation: blinkplane 1.5s infinite 0.5s;
+}
+
+@keyframes rotateplane {
+    0% {
+        -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+        transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+        opacity: 1;
+    }
+    25% {
+        -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+        transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+        opacity: 0.3;
+    }
+    50% {
+        -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+        transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+        opacity: 1;
+    }
+    75% {
+        -webkit-transform: perspective(120px) rotateX(0deg) rotateY(-180.1deg);
+        transform: perspective(120px) rotateX(0deg) rotateY(-180.1deg);
+        opacity: 0.3;
+    }
+    100% {
+        -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+        transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+        opacity: 1;
+    }
+}
+
+@keyframes blinkplane {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.01;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/*Loader End------------------------------------------------------------------------------------------------------------------------------------*/
