@@ -1,3 +1,11 @@
+body {
+    padding: 15px;
+}
+
+html, body {
+    height: 100%;
+}
+
 .color-fill-icon {
     display: inline-block;
     width: 16px;
@@ -30,9 +38,13 @@
 }
 
 #chart-container {
-    height: 650px;
-    width: 100%;
-    margin-top: 15px;
+    position: absolute;
+    top: 52px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 99%;
+    margin: 0 auto;
 }
 
 .container-drawing-tools #chart-container {
@@ -99,10 +111,6 @@
     display: inline-block;
 }
 
-.toolbar {
-    float: left;
-}
-
 .toolbar > .select-container {
     display: inline-block;
     margin-bottom: 5px;
@@ -142,56 +150,37 @@
     box-shadow: none;
 }
 
-
-@media (min-width: 768px) {
-    .container {
-        width: 100%;
-    }
-}
-
-@media (min-width: 992px) {
-    .container {
-        width: 970px;
-    }
-}
-
-@media (max-width: 1659px) {
-    .container.drawing-tools-solo .btn-group-container > .btn-group {
-        margin-bottom: 5px;
-    }
-}
-
-@media (min-width: 1200px) {
-    .container {
-        width: 1170px;
-    }
-}
-
-@media (min-width: 1660px) {
-    .container {
-        width: 1660px;
+@media (max-width: 1401px) {
+    #chart-container {
+        top: 92px;
     }
 }
 
 @media (max-width: 1200px) {
     #chart-container {
-        height: 500px;
+        top: 53px;
+    }
+
+    .btn-group-container {
+        margin-bottom: 5px;
     }
 }
 
 @media (max-width: 992px) {
     #chart-container {
-        height: 450px;
+        top: 92px;
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 556px) {
     #chart-container {
-        height: 350px;
+        top: 130px;
     }
+}
 
-    .btn-group-container > .btn-group {
-        margin-bottom: 5px;
+@media (max-width: 450px) {
+    #chart-container {
+        top: 170px;
     }
 }
 

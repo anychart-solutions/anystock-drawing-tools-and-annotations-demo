@@ -1,14 +1,11 @@
 (function () {
+    var $html = $('html');
+    $html.find('.title-drawing-tools').show();
+    $html.find('.text-drawing-tools').show();
+    $html.find('.drawing-tools-solo').addClass('container');
+    initTooltip('bottom');
 
-    if (window == top) {
-        var $html = $('html');
-        $html.find('.title-drawing-tools').show();
-        $html.find('.text-drawing-tools').show();
-        $html.find('.drawing-tools-solo').addClass('container');
-        initTooltip('top');
-    } else {
-        initTooltip('bottom');
-    }
+    $('#select-stroke-settings').val([1,6]).selectpicker('refresh');
 
     var chart;
     var annotationsColor;
