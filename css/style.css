@@ -1,5 +1,9 @@
-body {
+body.no-iframe {
     padding: 15px;
+}
+
+body {
+    padding: 1px;
 }
 
 html, body {
@@ -43,8 +47,12 @@ html, body {
     bottom: 0;
     left: 0;
     right: 0;
-    width: 99%;
+    width: 100%;
     margin: 0 auto;
+}
+
+.no-iframe #chart-container {
+    width: 99%;
 }
 
 .container-drawing-tools #chart-container {
@@ -175,8 +183,7 @@ button.dropdown-toggle {
 
 @media (max-width: 1200px) {
     #chart-container {
-        /*top: 53px;*/
-        top: 93px;
+        top: 75px;
     }
 
     .btn-group-container {
@@ -186,19 +193,19 @@ button.dropdown-toggle {
 
 @media (max-width: 992px) {
     #chart-container {
-        top: 92px;
+        top: 75px;
     }
 }
 
 @media (max-width: 475px) {
     #chart-container {
-        top: 130px;
+        top: 112px;
     }
 }
 
 @media (max-width: 450px) {
     #chart-container {
-        top: 170px;
+        top: 152px;
     }
 }
 
