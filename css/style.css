@@ -150,6 +150,23 @@ html, body {
     box-shadow: none;
 }
 
+.choose-drawing-tools.bootstrap-select.btn-group ul.dropdown-menu {
+    margin-right: 10px;
+}
+
+.choose-marker.bootstrap-select.btn-group ul.dropdown-menu {
+    margin-right: 10px;
+}
+
+.bootstrap-select.btn-group .dropdown-toggle .filter-option {
+    text-overflow: ellipsis;
+}
+
+button.dropdown-toggle {
+    padding-left: 13px !important;
+    padding-right: 25px !important;
+}
+
 @media (max-width: 1401px) {
     #chart-container {
         top: 92px;
@@ -158,7 +175,8 @@ html, body {
 
 @media (max-width: 1200px) {
     #chart-container {
-        top: 53px;
+        /*top: 53px;*/
+        top: 93px;
     }
 
     .btn-group-container {
@@ -172,7 +190,7 @@ html, body {
     }
 }
 
-@media (max-width: 556px) {
+@media (max-width: 475px) {
     #chart-container {
         top: 130px;
     }
