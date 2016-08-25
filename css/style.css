@@ -177,6 +177,9 @@ button.dropdown-toggle {
 
 @media (max-width: 1313px) {
     #chart-container {
+        top: 75px;
+    }
+    .no-iframe #chart-container {
         top: 92px;
     }
 }
@@ -189,34 +192,49 @@ button.dropdown-toggle {
 
 @media (max-width: 768px) {
     #chart-container {
+        top: 35px;
+    }
+    .no-iframe #chart-container {
         top: 52px;
     }
 }
 
 @media (max-width: 746px) {
     #chart-container {
+        top: 75px;
+    }
+    .no-iframe #chart-container {
         top: 92px;
     }
 }
 
 @media (max-width: 432px) {
     #chart-container {
+        top: 75px;
+    }
+    .no-iframe #chart-container {
         top: 127px;
     }
 }
 
 @media (max-width: 330px) {
     #chart-container {
+        top: 115px;
+    }
+    .no-iframe #chart-container {
         top: 166px;
     }
 }
 
 @media (max-width: 292px) {
     #chart-container {
+        top: 156px;
+    }
+    .no-iframe #chart-container {
         top: 205px;
     }
 
-    .toolbar button[data-original-title="Cursor"]{
+    .no-iframe .toolbar button[data-original-title="Cursor"]{
         margin-top: 5px;
     }
 }
