@@ -175,37 +175,49 @@ button.dropdown-toggle {
     padding-right: 25px !important;
 }
 
-@media (max-width: 1401px) {
+@media (max-width: 1313px) {
     #chart-container {
         top: 92px;
     }
 }
 
 @media (max-width: 1200px) {
-    #chart-container {
-        top: 75px;
-    }
-
     .btn-group-container {
         margin-bottom: 5px;
     }
 }
 
-@media (max-width: 992px) {
+@media (max-width: 768px) {
     #chart-container {
-        top: 75px;
+        top: 52px;
     }
 }
 
-@media (max-width: 475px) {
+@media (max-width: 746px) {
     #chart-container {
-        top: 112px;
+        top: 92px;
     }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 432px) {
     #chart-container {
-        top: 152px;
+        top: 127px;
+    }
+}
+
+@media (max-width: 330px) {
+    #chart-container {
+        top: 166px;
+    }
+}
+
+@media (max-width: 292px) {
+    #chart-container {
+        top: 205px;
+    }
+
+    .toolbar button[data-original-title="Cursor"]{
+        margin-top: 5px;
     }
 }
 
