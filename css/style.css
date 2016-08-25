@@ -200,11 +200,14 @@ button.dropdown-toggle {
 }
 
 @media (max-width: 746px) {
-    #chart-container {
-        top: 75px;
-    }
     .no-iframe #chart-container {
         top: 92px;
+    }
+}
+
+@media (max-width: 717px) {
+    #chart-container {
+        top: 75px;
     }
 }
 
@@ -214,6 +217,12 @@ button.dropdown-toggle {
     }
     .no-iframe #chart-container {
         top: 127px;
+    }
+}
+
+@media (max-width: 410px) {
+    #chart-container {
+        top: 115px;
     }
 }
 
