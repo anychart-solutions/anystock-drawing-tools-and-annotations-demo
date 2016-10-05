@@ -1,4 +1,4 @@
-[<img src="https://cdn.anychart.com/images/logo-transparent-segoe.png?2" width="234px" alt="AnyChart - Robust JavaScript/HTML5 Chart library for any project">](https://anychart.com)
+[<img src="https://cdn.anychart.com/images/logo-transparent-segoe.png?2" width="234px" alt="AnyChart - Robust JavaScript/HTML5 Chart library for any project">](http://www.anychart.com)
 
 # AnyStock - Drawing Tools and Annotations Demo
 AnyStock offers a large set of features, that allow you to build your online financial portal and one of the most exciting features is the ability to draw/display on the chart so called drawing tools or, as they are called in our [documentation](http://docs.anychart.com/) and settings, annotations.
@@ -10,3 +10,8 @@ AnyStock offers a large set of features, that allow you to build your online fin
 * [Code Playground](https://playground.anychart.com)
 * [Technical Support](https://anychart.com/support)
 
+<hr/>
+<p>
+<br/><a href="http://www.anychart.com">© AnyChart.com - JavaScript charts</a>. All rights reserved
+</p>
+<br/>
