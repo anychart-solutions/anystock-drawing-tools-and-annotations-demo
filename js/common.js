@@ -157,6 +157,10 @@
         if (typeof annotation.stroke() === 'function') {
             colorStroke = $colorPickerStroke.find('.color-fill-icon').css('background-color');
             colorFill = $colorPickerFill.find('.color-fill-icon').css('background-color');
+            
+            if (colorFill.indexOf('a') === -1) {
+                colorFill = colorFill.replace('rgb', 'rgba').replace(')', ', 0.5)');
+            }
 
             if ($strokeSettings.val()) {
                 switch ($strokeSettings.val()[0]) {
