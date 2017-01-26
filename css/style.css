@@ -1,8 +1,8 @@
-body.no-iframe {
+body {
     padding: 15px;
 }
 
-body {
+body.iframe {
     padding: 1px;
 }
 
