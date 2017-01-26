@@ -1,5 +1,5 @@
 body {
-    padding: 15px;
+    padding: 5px;
 }
 
 body.iframe {
@@ -43,7 +43,7 @@ html, body {
 
 #chart-container {
     position: absolute;
-    top: 52px;
+    top: 40px;
     bottom: 0;
     left: 0;
     right: 0;
@@ -177,10 +177,7 @@ button.dropdown-toggle {
 
 @media (max-width: 1313px) {
     #chart-container {
-        top: 75px;
-    }
-    .no-iframe #chart-container {
-        top: 92px;
+        top: 80px;
     }
 }
 
@@ -188,41 +185,41 @@ button.dropdown-toggle {
     .btn-group-container {
         margin-bottom: 5px;
     }
+
+    #chart-container {
+        height: 650px;
+    }
 }
 
 @media (max-width: 768px) {
     #chart-container {
-        top: 35px;
+        top: 40px;
     }
-    .no-iframe #chart-container {
-        top: 52px;
-    }
-}
 
-@media (max-width: 746px) {
-    .no-iframe #chart-container {
-        top: 92px;
+    #chart-container {
+        height: 500px;
     }
 }
 
 @media (max-width: 717px) {
     #chart-container {
-        top: 75px;
+        top: 80px;
     }
 }
 
 @media (max-width: 432px) {
     #chart-container {
-        top: 75px;
+        top: 80px;
     }
-    .no-iframe #chart-container {
-        top: 127px;
+
+    #chart-container {
+        height: 400px;
     }
 }
 
 @media (max-width: 410px) {
     #chart-container {
-        top: 115px;
+        top: 120px;
     }
 }
 
@@ -230,21 +227,11 @@ button.dropdown-toggle {
     #chart-container {
         top: 115px;
     }
-    .no-iframe #chart-container {
-        top: 166px;
-    }
 }
 
 @media (max-width: 292px) {
     #chart-container {
         top: 156px;
-    }
-    .no-iframe #chart-container {
-        top: 205px;
-    }
-
-    .no-iframe .toolbar button[data-original-title="Cursor"]{
-        margin-top: 5px;
     }
 }
 
