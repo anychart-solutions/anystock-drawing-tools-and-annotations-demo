@@ -25,8 +25,8 @@ html, body {
 }
 
 .dropdown-color-fill-icon {
-    position: relative;
     float: left;
+	position: relative;
     margin-left: 0;
     margin-right: 0
 }
@@ -350,6 +350,5 @@ button.dropdown-toggle {
         opacity: 1;
     }
 }
-
 
 /*Loader End------------------------------------------------------------------------------------------------------------------------------------*/
