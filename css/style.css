@@ -6,6 +6,10 @@ body.iframe {
     padding: 1px;
 }
 
+.iframe {
+    height: 650px;
+}
+
 html, body {
     height: 100%;
 }
@@ -196,6 +200,10 @@ button.dropdown-toggle {
         top: 40px;
     }
 
+    .iframe {
+        height: 525px;
+    }
+
     #chart-container {
         height: 500px;
     }
@@ -204,6 +212,10 @@ button.dropdown-toggle {
 @media (max-width: 717px) {
     #chart-container {
         top: 80px;
+    }
+
+    .iframe {
+        height: 565px;
     }
 }
 
@@ -215,17 +227,29 @@ button.dropdown-toggle {
     #chart-container {
         height: 400px;
     }
+
+    .iframe {
+        height: 465px;
+    }
 }
 
 @media (max-width: 410px) {
     #chart-container {
         top: 120px;
     }
+
+    .iframe {
+        height: 505px;
+    }
 }
 
 @media (max-width: 330px) {
     #chart-container {
         top: 115px;
+    }
+
+    .iframe {
+        height: 535px;
     }
 }
 
