@@ -2,10 +2,6 @@ body {
     padding: 5px;
 }
 
-body.iframe {
-    padding: 1px;
-}
-
 html, body {
     height: 100%;
 }
@@ -49,10 +45,6 @@ html, body {
     right: 0;
     width: 100%;
     margin: 0 auto;
-}
-
-.no-iframe #chart-container {
-    width: 99%;
 }
 
 .container-drawing-tools #chart-container {
