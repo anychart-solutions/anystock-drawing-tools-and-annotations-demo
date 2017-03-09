@@ -71,7 +71,7 @@
                     class="caret"></b>
             </button>
 
-            <select class="selectpicker show-menu-arrow select" id="select-stroke-settings"
+            <select class="selectpicker show-menu-arrow" id="select-stroke-settings"
                     title="Stroke settings"
                     data-style="btn-lg" data-width="121" multiple>
                 <optgroup label="Stroke width" data-max-options="1">
@@ -97,30 +97,30 @@
     </div>
 
     <div class="select-container">
-        <select class="selectpicker show-menu-arrow select choose-drawing-tools"
+        <select class="selectpicker show-menu-arrow choose-drawing-tools"
                 title="Drawing tools"
                 data-style="btn-lg" data-width="133" data-max-options="1">
             <optgroup label="Lines, Trend lines and Rays:">
-                <option data-icon="ac ac-line">Line Segment</option>
-                <option data-icon="ac ac-horizontal-line">Horizontal Line</option>
-                <option data-icon="ac ac-vertical-line">Vertical Line</option>
-                <option data-icon="ac ac-infinite-line">Infinite Line</option>
-                <option data-icon="ac ac-ray">Ray</option>
+                <option data-icon="ac ac-line" data-annotation-type="line">Line Segment</option>
+                <option data-icon="ac ac-horizontal-line" data-annotation-type="horizontalLine">Horizontal Line</option>
+                <option data-icon="ac ac-vertical-line" data-annotation-type="verticalLine">Vertical Line</option>
+                <option data-icon="ac ac-infinite-line" data-annotation-type="infiniteLine">Infinite Line</option>
+                <option data-icon="ac ac-ray" data-annotation-type="ray">Ray</option>
             </optgroup>
             <optgroup label="Geometric shapes:">
-                <option data-icon="ac ac-triangle">Triangle</option>
-                <option data-icon="ac ac-rectangle">Rectangle</option>
-                <option data-icon="ac ac-ellipse">Ellipse</option>
+                <option data-icon="ac ac-triangle" data-annotation-type="triangle">Triangle</option>
+                <option data-icon="ac ac-rectangle" data-annotation-type="rectangle">Rectangle</option>
+                <option data-icon="ac ac-ellipse" data-annotation-type="ellipse">Ellipse</option>
             </optgroup>
             <optgroup label="Other tools:">
-                <option data-icon="ac ac-trend-channel">Trend Channel</option>
-                <option data-icon="ac ac-andrews-pitchfork">Andrew's Pitchfork</option>
+                <option data-icon="ac ac-trend-channel" data-annotation-type="trendChannel">Trend Channel</option>
+                <option data-icon="ac ac-andrews-pitchfork" data-annotation-type="andrewsPitchfork">Andrew's Pitchfork</option>
             </optgroup>
             <optgroup label="Fibonacci tools:">
-                <option data-icon="ac ac-fibonacci-fan">Fibonacci Fan</option>
-                <option data-icon="ac ac-fibonacci-arc">Fibonacci Arc</option>
-                <option data-icon="ac ac-fibonacci-retracement">Fibonacci Retracement</option>
-                <option data-icon="ac ac-fibonacci-timezones">Fibonacci Time Zones</option>
+                <option data-icon="ac ac-fibonacci-fan" data-annotation-type="fibonacciFan">Fibonacci Fan</option>
+                <option data-icon="ac ac-fibonacci-arc" data-annotation-type="fibonacciArc">Fibonacci Arc</option>
+                <option data-icon="ac ac-fibonacci-retracement" data-annotation-type="fibonacciRetracement">Fibonacci Retracement</option>
+                <option data-icon="ac ac-fibonacci-timezones" data-annotation-type="fibonacciTimezones">Fibonacci Time Zones</option>
             </optgroup>
         </select>
     </div>
