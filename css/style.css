@@ -128,7 +128,6 @@ html, body {
 
 .toolbar > .select-container {
     display: inline-block;
-    margin-bottom: 5px;
 }
 
 .select .ac {
@@ -177,6 +176,10 @@ html, body {
     text-overflow: ellipsis;
 }
 
+.btn-group .btn {
+    margin-bottom: 5px;
+}
+
 button.dropdown-toggle {
     padding-left: 13px !important;
     padding-right: 25px !important;
@@ -189,9 +192,6 @@ button.dropdown-toggle {
 }
 
 @media (max-width: 1200px) {
-    .btn-group-container {
-        margin-bottom: 5px;
-    }
 
     #chart-container {
         height: 650px;
