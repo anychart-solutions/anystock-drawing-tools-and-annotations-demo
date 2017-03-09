@@ -1,8 +1,5 @@
 (function () {
     var $html = $('html');
-    $html.find('.title-drawing-tools').show();
-    $html.find('.text-drawing-tools').show();
-    $html.find('.drawing-tools-solo').addClass('container');
     initTooltip('bottom');
 
     $('#select-stroke-settings').val([1,6]).selectpicker('refresh');
@@ -157,7 +154,7 @@
         if (typeof annotation.stroke() === 'function') {
             colorStroke = $colorPickerStroke.find('.color-fill-icon').css('background-color');
             colorFill = $colorPickerFill.find('.color-fill-icon').css('background-color');
-            
+
             if (colorFill.indexOf('a') === -1) {
                 colorFill = colorFill.replace('rgb', 'rgba').replace(')', ', 0.5)');
             }
@@ -329,61 +326,59 @@
         });
     }
 
-    $(window).on('load', function () {
-        var annotationTypeArr = $('[data-annotation-type]');
-        var $selectChooseDrawingLi = $('.choose-drawing-tools .dropdown-menu.inner > li[data-original-index]');
-        var $selectChooseMarkerLi = $('.choose-marker .dropdown-menu.inner > li[data-original-index]');
-        var m = 0;
+    $(document).ready(function () {
 
-        for (var k = 0; k < annotationTypeArr.length; k++) {
-            if (annotationTypeArr.eq(k).attr('data-annotation-type') !== 'marker') {
-                $selectChooseDrawingLi.eq(k).attr('data-annotation-type', annotationTypeArr.eq(k).data().annotationType);
-            } else {
-                $selectChooseMarkerLi.eq(m).attr('data-annotation-type', annotationTypeArr.eq(k).data().annotationType);
-                $selectChooseMarkerLi.eq(m).attr('data-marker-type', annotationTypeArr.eq(k).data().markerType);
-                $selectChooseMarkerLi.eq(m).attr('data-marker-anchor', annotationTypeArr.eq(k).data().markerAnchor);
-                m++;
-            }
-        }
+        $('select.choose-drawing-tools').on('change', changeAnnotations);
+        $('select.choose-marker').on('change', changeAnnotations);
+        $('[data-annotation-type]').on('click', changeAnnotations);
 
-        $('[data-annotation-type]').click(function (evt) {
-            var $target = $(evt.currentTarget);
-            var active = $target.hasClass('active');
-            var $markerSize = $('#select-marker-size');
-            var MARKER_SIZE = 20;
+        function changeAnnotations() {
+            var $that = $(this);
 
-            if (active) {
-                chart.annotations().cancelDrawing();
-                setToolbarButtonActive(null);
-            } else {
-                var type = $target.attr('data-annotation-type');
-                var markerType = $target.attr('data-marker-type');
-                setToolbarButtonActive(type, markerType);
-                if (type) {
-                    var markerAnchor = $target.attr('data-marker-anchor');
-                    var drawingSettings = {
-                        type: type,
-                        color: annotationsColor,
-                        markerType: markerType,
-                        anchor: markerAnchor
-                    };
-                    chart.annotations().startDrawing(drawingSettings);
+            setTimeout(function () {
+                var $target = $that;
+                var active = $target.hasClass('active');
+                var $markerSize = $('#select-marker-size');
+                var markerSize = $markerSize.val();
+
+                if (active) {
+                    chart.annotations().cancelDrawing();
+                    setToolbarButtonActive(null);
+                } else {
+                    var type = $target.data().annotationType || $target.find('option:selected').data().annotationType;
+
+                    if (!$target.data().annotationType) {
+                        var markerType = $target.find('option:selected').data().markerType;
+                    }
+
+                    setToolbarButtonActive(type, markerType);
+
+                    if (type) {
+
+                        if (!$target.data().annotationType) {
+                            var markerAnchor =  $target.find('option:selected').data().markerAnchor;
+                        }
+
+                        var drawingSettings = {
+                            type: type,
+                            size: markerSize,
+                            color: annotationsColor,
+                            markerType: markerType,
+                            anchor: markerAnchor
+                        };
+                        chart.annotations().startDrawing(drawingSettings);
+                    }
                 }
-            }
 
-            var annotation = chart.annotations().getSelectedAnnotation();
+                var annotation = chart.annotations().getSelectedAnnotation();
 
-            if (type === 'marker') {
-                annotation.size(annotation.size() || MARKER_SIZE);
-                $markerSize.removeAttr('disabled').val(annotation.size() || MARKER_SIZE).selectpicker('refresh');
-            }
-
-            if (annotation.fill === undefined) {
-                $('.color-picker[data-color="fill"]').attr('disabled', 'disabled');
-            } else {
-                $('.color-picker[data-color="fill"]').removeAttr('disabled');
-            }
-        });
+                if (annotation.fill === undefined) {
+                    $('.color-picker[data-color="fill"]').attr('disabled', 'disabled');
+                } else {
+                    $('.color-picker[data-color="fill"]').removeAttr('disabled');
+                }
+            }, 1);
+        }
 
         $('.btn[data-action-type]').click(function (evt) {
             var annotation = chart.annotations().getSelectedAnnotation();

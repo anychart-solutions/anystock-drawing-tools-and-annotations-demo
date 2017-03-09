@@ -112,6 +112,9 @@ html, body {
 .bootstrap-select .dropdown-toggle {
     height: 34px;
     padding: 8px 16px;
+    font-weight: 400;
+    border-color: #c5c8d1;
+    background: #fff;
 }
 
 .filter-option {
