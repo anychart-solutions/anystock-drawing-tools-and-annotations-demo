@@ -377,6 +377,8 @@
                 } else {
                     $('.color-picker[data-color="fill"]').removeAttr('disabled');
                 }
+				
+				$target.val('');
             }, 1);
         }
 
