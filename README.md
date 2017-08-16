@@ -12,4 +12,5 @@ AnyStock offers a large set of features, that allow you to build your online fin
 * [Technical Support](https://www.anychart.com/support)
 
 ## License
-[© AnyChart.com - JavaScript charts](https://www.anychart.com). Released under the [Apache 2.0 License](https://github.com/anychart-solutions/anystock-drawing-tools-and-annotations-demo/blob/master/LICENSE).
+[© AnyChart.com - JavaScript charts](https://www.anychart.com). 
+[![Analytics](https://ga-beacon.appspot.com/UA-228820-4/Solutions/Drawing-Tools-and-Annotations?pixel&useReferer)](https://github.com/igrigorik/ga-beacon)
