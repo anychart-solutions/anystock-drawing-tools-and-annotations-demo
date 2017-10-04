@@ -22,7 +22,7 @@
         table.addData(data);
 
         // create data mappings
-        var mapping = table.mapAs({value: 4});
+        var mapping = table.mapAs({'value': 4});
 
         // create line series
         chart.plot(0).line(mapping)
@@ -46,8 +46,8 @@
             .ticks(false)
             .labels(false)
             .minorLabels(false);
-        chart.plot(0).grid(0).layout("h");
-        chart.plot(0).grid(1).layout("v");
+        chart.plot(0).xGrid();
+        chart.plot(0).yGrid();
 
         // set chart padding
         chart.padding(5, 30, 5, 5);
@@ -99,8 +99,8 @@
                             dash: strokeDash
                         };
                         annotation.stroke(settings);
-                        annotation.hoverStroke(settings);
-                        annotation.selectStroke(settings);
+                        annotation.hovered().stroke(settings);
+                        annotation.selected().stroke(settings);
                 }
             }
 
@@ -224,8 +224,8 @@
         };
 
         annotation.stroke(settings);
-        annotation.hoverStroke(settings);
-        annotation.selectStroke(settings);
+        annotation.hovered().stroke(settings);
+        annotation.selected().stroke(settings);
 
         if (annotation.fill !== undefined) {
             annotation.fill(colorFill);
@@ -309,8 +309,8 @@
         };
 
         annotation.stroke(settings);
-        annotation.hoverStroke(settings);
-        annotation.selectStroke(settings);
+        annotation.hovered().stroke(settings);
+        annotation.selected().stroke(settings);
     }
 
     function hidePreloader() {

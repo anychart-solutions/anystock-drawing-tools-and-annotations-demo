@@ -28,10 +28,6 @@
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
 
-    <!-- AnyChart UI -->
-    <link rel="stylesheet" href="https://cdn.anychart.com/css/7.11.0/anychart-ui.min.css">
-    <link rel="stylesheet" href="https://cdn.anychart.com/fonts/2.7.2/anychart.css">
-
     <!-- ColorPicker -->
     <link href="css/vendor/bootstrap-colorpicker.min.css" rel="stylesheet">
     <link href="css/vendor/bootstrap-colorpicker-plus.min.css" rel="stylesheet">
@@ -61,13 +57,13 @@
         <div class="btn-group">
             <button type="button" class="btn btn-default color-picker" data-color="fill" data-toggle="tooltip"
                     title="Сhoose drawing fill color"><span
-                    class="color-fill-icon dropdown-color-fill-icon" style="background-color:#e06666;"></span>&nbsp;<b
+                    class="color-fill-icon dropdown-color-fill-icon" style="background-color:#e06666;"></span> <b
                     class="caret"></b>
             </button>
 
             <button type="button" class="btn btn-default color-picker" data-color="stroke" data-toggle="tooltip"
                     title="Сhoose drawing stroke color"><span
-                    class="color-fill-icon dropdown-color-fill-icon" style="background-color:#e06666;"></span>&nbsp;<b
+                    class="color-fill-icon dropdown-color-fill-icon" style="background-color:#e06666;"></span> <b
                     class="caret"></b>
             </button>
 
@@ -103,7 +99,7 @@
             <optgroup label="Lines, Trend lines and Rays:">
                 <option data-icon="ac ac-line" data-annotation-type="line">Line Segment</option>
                 <option data-icon="ac ac-horizontal-line" data-annotation-type="horizontalLine">Horizontal Line</option>
-                <option data-icon="ac ac-vertical-line" data-annotation-type="verticalLine">Vertical Line</option>
+                <option data-icon="ac ac-vertical-line" data-annotation-type="vertical-line">Vertical Line</option>
                 <option data-icon="ac ac-infinite-line" data-annotation-type="infiniteLine">Infinite Line</option>
                 <option data-icon="ac ac-ray" data-annotation-type="ray">Ray</option>
             </optgroup>
@@ -130,15 +126,15 @@
                 data-toggle="tooltip" title="Line Segment">
             <i class="ac ac-line" aria-hidden="true"></i>
         </button>
-        <button data-annotation-type="horizontalLine" type="button" class="btn btn-default"
+        <button data-annotation-type="horizontal-line" type="button" class="btn btn-default"
                 aria-label="Center Align" data-toggle="tooltip" title="Horizontal Line">
             <i class="ac ac-horizontal-line" aria-hidden="true"></i>
         </button>
-        <button data-annotation-type="verticalLine" type="button" class="btn btn-default"
+        <button data-annotation-type="vertical-line" type="button" class="btn btn-default"
                 aria-label="Center Align" data-toggle="tooltip" title="Vertical Line">
             <i class="ac ac-vertical-line" aria-hidden="true"></i>
         </button>
-        <button data-annotation-type="infiniteLine" type="button" class="btn btn-default"
+        <button data-annotation-type="infinite-line" type="button" class="btn btn-default"
                 aria-label="Center Align" data-toggle="tooltip" title="Infinite Line">
             <i class="ac ac-infinite-line" aria-hidden="true"></i>
         </button>
@@ -164,30 +160,30 @@
     </div>
 
     <div class="btn-group hidden-xs">
-        <button data-annotation-type="trendChannel" type="button" class="btn btn-default"
+        <button data-annotation-type="trend-channel" type="button" class="btn btn-default"
                 aria-label="Center Align" data-toggle="tooltip" title="Trend Channel">
             <i class="ac ac-trend-channel" aria-hidden="true"></i>
         </button>
-        <button data-annotation-type="andrewsPitchfork" type="button" class="btn btn-default"
+        <button data-annotation-type="andrews-pitchfork" type="button" class="btn btn-default"
                 aria-label="Center Align" data-toggle="tooltip" title="Andrew's Pitchfork">
             <i class="ac ac-andrews-pitchfork" aria-hidden="true"></i>
         </button>
     </div>
 
     <div class="btn-group hidden-xs">
-        <button data-annotation-type="fibonacciFan" type="button" class="btn btn-default"
+        <button data-annotation-type="fibonacci-fan" type="button" class="btn btn-default"
                 aria-label="Center Align" data-toggle="tooltip" title="Fibonacci Fan">
             <i class="ac ac-fibonacci-fan" aria-hidden="true"></i>
         </button>
-        <button data-annotation-type="fibonacciArc" type="button" class="btn btn-default"
+        <button data-annotation-type="fibonacci-arc" type="button" class="btn btn-default"
                 aria-label="Center Align" data-toggle="tooltip" title="Fibonacci Arc">
             <i class="ac ac-fibonacci-arc" aria-hidden="true"></i>
         </button>
-        <button data-annotation-type="fibonacciRetracement" type="button" class="btn btn-default"
+        <button data-annotation-type="fibonacci-retracement" type="button" class="btn btn-default"
                 aria-label="Center Align" data-toggle="tooltip" title="Fibonacci Retracement">
             <i class="ac ac-fibonacci-retracement" aria-hidden="true"></i>
         </button>
-        <button data-annotation-type="fibonacciTimezones" type="button" class="btn btn-default"
+        <button data-annotation-type="fibonacci-timezones" type="button" class="btn btn-default"
                 aria-label="Center Align" data-toggle="tooltip" title="Fibonacci Time Zones">
             <i class="ac ac-fibonacci-timezones" aria-hidden="true"></i>
         </button>
@@ -200,24 +196,24 @@
                     title="Marker"
                     data-style="btn-lg" data-width="90" data-max-options="1">
                 <option data-icon="ac ac-arrow-up-square" data-annotation-type="marker" data-marker-type="arrowUp"
-                        data-marker-anchor="top">Up Arrow
+                        data-marker-anchor="center-top">Up Arrow
                 </option>
                 <option data-icon="ac ac-arrow-down-square" data-annotation-type="marker"
-                        data-marker-type="arrowDown" data-marker-anchor="bottom">Down Arrow
+                        data-marker-type="arrow-down" data-marker-anchor="center-bottom">Down Arrow
                 </option>
                 <option data-icon="ac ac-arrow-left-square" data-annotation-type="marker"
-                        data-marker-type="arrowLeft" data-marker-anchor="left">Left Arrow
+                        data-marker-type="arrow-left" data-marker-anchor="left-center">Left Arrow
                 </option>
                 <option data-icon="ac ac-arrow-right-square" data-annotation-type="marker"
-                        data-marker-type="arrowRight" data-marker-anchor="right">Right Arrow
+                        data-marker-type="arrow-right" data-marker-anchor="right-center">Right Arrow
                 </option>
                 <option data-icon="ac ac-head-arrow" data-annotation-type="marker" data-marker-type="arrowHead"
-                        data-marker-anchor="right">Head Arrow
+                        data-marker-anchor="right-center">Head Arrow
                 </option>
                 <option data-icon="ac ac-cross" data-annotation-type="marker" data-marker-type="cross"
                         data-marker-anchor="center">Cross
                 </option>
-                <option data-icon="ac ac-diagonal-cros" data-annotation-type="marker" data-marker-type="diagonalCross"
+                <option data-icon="ac ac-diagonal-cros" data-annotation-type="marker" data-marker-type="diagonal-cross"
                         data-marker-anchor="center">Diagonal cross
                 </option>
                 <option data-icon="ac ac-diamond" data-annotation-type="marker" data-marker-type="diamond"
@@ -247,17 +243,17 @@
                 <option data-icon="ac ac-trapezium" data-annotation-type="marker" data-marker-type="trapezium"
                         data-marker-anchor="center">Trapezium
                 </option>
-                <option data-icon="ac ac-triangle-up" data-annotation-type="marker" data-marker-type="triangleUp"
-                        data-marker-anchor="top">Triangle Up
+                <option data-icon="ac ac-triangle-up" data-annotation-type="marker" data-marker-type="triangle-up"
+                        data-marker-anchor="center-top">Triangle Up
                 </option>
-                <option data-icon="ac ac-triangle-down" data-annotation-type="marker" data-marker-type="triangleDown"
-                        data-marker-anchor="bottom">Triangle Down
+                <option data-icon="ac ac-triangle-down" data-annotation-type="marker" data-marker-type="triangle-down"
+                        data-marker-anchor="center-bottom">Triangle Down
                 </option>
-                <option data-icon="ac ac-triangle-left" data-annotation-type="marker" data-marker-type="triangleLeft"
-                        data-marker-anchor="left">Triangle Left
+                <option data-icon="ac ac-triangle-left" data-annotation-type="marker" data-marker-type="triangle-left"
+                        data-marker-anchor="left-center">Triangle Left
                 </option>
-                <option data-icon="ac ac-triangle-right" data-annotation-type="marker" data-marker-type="triangleRight"
-                        data-marker-anchor="right">Triangle Right
+                <option data-icon="ac ac-triangle-right" data-annotation-type="marker" data-marker-type="triangle-right"
+                        data-marker-anchor="right-center">Triangle Right
                 </option>
             </select>
             <select class="selectpicker show-menu-arrow select select-marker-size" id="select-marker-size"
@@ -293,7 +289,14 @@
         crossorigin="anonymous"></script>
 <script src="js/vendor/bootstrap-colorpicker.min.js"></script>
 <script src="js/vendor/bootstrap-colorpicker-plus.js"></script>
-<script src="https://cdn.anychart.com/js/7.11.0/anychart-bundle.min.js"></script>
+<script src="https://cdn.anychart.com/releases/8.0.0/js/anychart-base.min.js"></script>
+<script src="https://cdn.anychart.com/releases/8.0.0/js/anychart-stock.min.js"></script>
+<script src="https://cdn.anychart.com/releases/8.0.0/js/anychart-annotations.min.js"></script>
+<script src="https://cdn.anychart.com/releases/8.0.0/js/anychart-exports.min.js"></script>
+<script src="https://cdn.anychart.com/releases/8.0.0/js/anychart-vml.min.js"></script>
+<script src="https://cdn.anychart.com/releases/8.0.0/js/anychart-ui.min.js"></script>
+<link rel="stylesheet" href="https://cdn.anychart.com/releases/8.0.0/css/anychart-ui.min.css"/>
+<link rel="stylesheet" href="https://cdn.anychart.com/releases/8.0.0/fonts/css/anychart.min.css"/>
 <script src="https://cdn.anychart.com/csv-data/msft-daily-short.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
 
