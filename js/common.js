@@ -250,19 +250,23 @@
 
     function contextMenuItemsFormatter(items) {
         // insert context menu item on 0 position
-        items.splice(0, 0, {
+        items['annotations-remove-selected'] = {
             text: "Remove selected annotation",
-            action: removeSelectedAnnotation
-        });
+            action: removeSelectedAnnotation,
+            index: -10
+        };
 
         // insert context menu item on 1 position
-        items.splice(1, 0, {
+        items['annotations-remove-all'] = {
             text: "Remove all annotations",
-            action: removeAllAnnotation
-        });
+            action: removeAllAnnotation,
+            index: -5
+        };
 
         // insert context menu separator
-        items.splice(2, 0, undefined);
+        items['annotations-separator'] = {
+            index: -4
+        };
 
         return items;
     }

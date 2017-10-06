@@ -13,9 +13,9 @@ AnyStock offers a large set of features, that allow you to build your online fin
 
 ## License
 AnyChart Drawing Tools and Annotations Demo solution includes two parts:
-- Code of the solution that allows to use Javascript library (in this case, AnyChart) to create a demo. You can use, edit, modify it, use it with other Javascript libraries without any restrictions. It is released under [Apache 2.0 License](https://github.com/anychart-solutions/drawing-tools-and-annotations/blob/master/LICENSE).
+- Code of the solution that allows to use Javascript library (in this case, AnyChart) to create a demo. You can use, edit, modify it, use it with other Javascript libraries without any restrictions. It is released under [Apache 2.0 License](https://github.com/anychart-solutions/anystock-drawing-tools-and-annotations-demo/blob/master/LICENSE).
 - AnyChart JavaScript library. It is released under Commercial license. You can test this plugin with the trial version of AnyChart. Our trial version is not limited by time and doesn't contain any feature limitations. Check details [here](https://www.anychart.com/buy/).
 
 If you have any questions regarding licensing - please contact us. <sales@anychart.com>
 
-[![Analytics](https://ga-beacon.appspot.com/UA-228820-4/Solutions/drawing-tools-and-annotations?pixel&useReferer)](https://github.com/igrigorik/ga-beacon)
+[![Analytics](https://ga-beacon.appspot.com/UA-228820-4/Solutions/anystock-drawing-tools-and-annotations-demopixel&useReferer)](https://github.com/igrigorik/ga-beacon)
