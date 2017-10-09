@@ -191,13 +191,6 @@ button.dropdown-toggle {
     }
 }
 
-@media (max-width: 1200px) {
-
-    #chart-container {
-        height: 650px;
-    }
-}
-
 @media (max-width: 768px) {
     #chart-container {
         top: 40px;
@@ -205,10 +198,6 @@ button.dropdown-toggle {
 
     .iframe {
         height: 525px;
-    }
-
-    #chart-container {
-        height: 500px;
     }
 }
 
@@ -225,10 +214,6 @@ button.dropdown-toggle {
 @media (max-width: 432px) {
     #chart-container {
         top: 80px;
-    }
-
-    #chart-container {
-        height: 400px;
     }
 
     .iframe {
