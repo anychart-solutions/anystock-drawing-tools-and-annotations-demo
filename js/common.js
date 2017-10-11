@@ -1,5 +1,4 @@
 (function () {
-    var $html = $('html');
     initTooltip('bottom');
 
     $('#select-stroke-settings').val([1,6]).selectpicker('refresh');
@@ -22,43 +21,50 @@
         table.addData(data);
 
         // create data mappings
-        var mapping = table.mapAs({value: 4});
+        var mapping = table.mapAs({'value': 4});
 
         // create line series
         chart.plot(0).line(mapping)
-            .stroke("2 #253992")
-            .name("MSFT");
+            .stroke('2 #253992')
+            .name('MSFT');
 
         // create ema indicator
-        chart.plot(0).ema(mapping, 50, "spline")
+        chart.plot(0).ema(mapping, 50, 'spline')
             .series()
-            .stroke("#DB2A0E");
+            .stroke('#DB2A0E');
 
         // create scroller series
         chart.scroller().area(mapping)
-            .color("#253992 0.3")
-            .stroke("#253992");
+            .color('#253992 0.3')
+            .stroke('#253992');
 
         // set grid and axis settings
-        chart.plot(0).yAxis(0).orientation("right");
+        chart.plot(0).yAxis(0).orientation('right');
         chart.plot(0).yAxis(1)
-            .orientation("left")
+            .orientation('left')
             .ticks(false)
             .labels(false)
             .minorLabels(false);
-        chart.plot(0).grid(0).layout("h");
-        chart.plot(0).grid(1).layout("v");
+        chart.plot()
+            .xGrid(true)
+            .yGrid(true);
 
         // set chart padding
-        chart.padding(5, 30, 5, 5);
+        chart.padding()
+            .right(50)
+            .left(15)
+            .top(10);
+
+        // set chart margin
+        chart.margin().top(5);
 
         // add annotation items in context menu
         chart.contextMenu().itemsFormatter(contextMenuItemsFormatter);
 
         // use annotation events to update application UI elements
-        chart.listen("annotationDrawingFinish", onAnnotationDrawingFinish);
-        chart.listen("annotationSelect", onAnnotationSelect);
-        chart.listen("annotationUnSelect", function () {
+        chart.listen('annotationDrawingFinish', onAnnotationDrawingFinish);
+        chart.listen('annotationSelect', onAnnotationSelect);
+        chart.listen('annotationUnSelect', function () {
             $('.color-picker[data-color="fill"]').removeAttr('disabled');
             $('.select-marker-size').removeAttr('disabled');
             $('.drawing-tools-solo').find('.bootstrap-select').each(function () {
@@ -70,7 +76,7 @@
         });
 
         // set container id for the chart
-        chart.container("chart-container");
+        chart.container('chart-container');
 
         // initiate chart drawing
         chart.draw();
@@ -99,8 +105,8 @@
                             dash: strokeDash
                         };
                         annotation.stroke(settings);
-                        annotation.hoverStroke(settings);
-                        annotation.selectStroke(settings);
+                        annotation.hovered().stroke(settings);
+                        annotation.selected().stroke(settings);
                 }
             }
 
@@ -224,8 +230,8 @@
         };
 
         annotation.stroke(settings);
-        annotation.hoverStroke(settings);
-        annotation.selectStroke(settings);
+        annotation.hovered().stroke(settings);
+        annotation.selected().stroke(settings);
 
         if (annotation.fill !== undefined) {
             annotation.fill(colorFill);
@@ -250,19 +256,23 @@
 
     function contextMenuItemsFormatter(items) {
         // insert context menu item on 0 position
-        items.splice(0, 0, {
+        items['annotations-remove-selected'] = {
             text: "Remove selected annotation",
-            action: removeSelectedAnnotation
-        });
+            action: removeSelectedAnnotation,
+            index: -10
+        };
 
         // insert context menu item on 1 position
-        items.splice(1, 0, {
+        items['annotations-remove-all'] = {
             text: "Remove all annotations",
-            action: removeAllAnnotation
-        });
+            action: removeAllAnnotation,
+            index: -5
+        };
 
         // insert context menu separator
-        items.splice(2, 0, undefined);
+        items['annotations-separator'] = {
+            index: -4
+        };
 
         return items;
     }
@@ -309,8 +319,8 @@
         };
 
         annotation.stroke(settings);
-        annotation.hoverStroke(settings);
-        annotation.selectStroke(settings);
+        annotation.hovered().stroke(settings);
+        annotation.selected().stroke(settings);
     }
 
     function hidePreloader() {
@@ -378,8 +388,7 @@
                     $('.color-picker[data-color="fill"]').removeAttr('disabled');
                 }
 				
-				 $target.val('');
-				
+				$target.val('');
             }, 1);
         }
 
