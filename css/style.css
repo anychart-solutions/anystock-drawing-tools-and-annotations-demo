@@ -46,13 +46,32 @@ html, body {
 }
 
 #chart-container {
+    height: 100%;
+}
+
+#annotation-label {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
     position: absolute;
-    top: 40px;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    width: 1px;
+}
+
+.table-container {
+    padding: 0;
     width: 100%;
-    margin: 0 auto;
+    height: 100%;
+}
+
+.table-container td {
+    vertical-align: top;
+}
+
+.chart-column {
+    height: 100%;
 }
 
 .no-iframe #chart-container {
@@ -60,13 +79,7 @@ html, body {
 }
 
 .container-drawing-tools #chart-container {
-    position: absolute;
     margin-top: 0;
-    top: 52px;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: auto;
 }
 
 .drawing-tools-solo.container {
@@ -145,6 +158,11 @@ html, body {
     margin-left: -1px;
 }
 
+.bootstrap-select.btn-group:not(.input-group-btn),
+.bootstrap-select.btn-group[class*=col-] {
+    margin-left: -1px;
+}
+
 .btn-group .select.select-marker-size {
     margin-left: -5px !important;
 }
@@ -180,71 +198,22 @@ html, body {
     margin-bottom: 5px;
 }
 
+.btn-group .volume-btn {
+    display: inline-block;
+    float: none;
+}
+
+.btn-group {
+    font-size: 0;
+}
+
+.ac.glyphicon {
+    font-family: 'Glyphicons Halflings' !important;
+}
+
 button.dropdown-toggle {
     padding-left: 13px !important;
     padding-right: 25px !important;
-}
-
-@media (max-width: 1313px) {
-    #chart-container {
-        top: 80px;
-    }
-}
-
-@media (max-width: 768px) {
-    #chart-container {
-        top: 40px;
-    }
-
-    .iframe {
-        height: 525px;
-    }
-}
-
-@media (max-width: 717px) {
-    #chart-container {
-        top: 80px;
-    }
-
-    .iframe {
-        height: 565px;
-    }
-}
-
-@media (max-width: 432px) {
-    #chart-container {
-        top: 80px;
-    }
-
-    .iframe {
-        height: 465px;
-    }
-}
-
-@media (max-width: 410px) {
-    #chart-container {
-        top: 120px;
-    }
-
-    .iframe {
-        height: 505px;
-    }
-}
-
-@media (max-width: 330px) {
-    #chart-container {
-        top: 115px;
-    }
-
-    .iframe {
-        height: 535px;
-    }
-}
-
-@media (max-width: 292px) {
-    #chart-container {
-        top: 156px;
-    }
 }
 
 /*Loader------------------------------------------------------------------------------------------------------------------------------------*/
