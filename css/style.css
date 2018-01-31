@@ -216,6 +216,11 @@ button.dropdown-toggle {
     padding-right: 25px !important;
 }
 
+.filter-option .ac,
+.dropdown-menu .ac {
+    font-size: 14px;
+}
+
 /*Loader------------------------------------------------------------------------------------------------------------------------------------*/
 .anychart-loader {
     position: absolute;
