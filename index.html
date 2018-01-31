@@ -35,8 +35,9 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.1/css/bootstrap-colorpicker.css"/>
 
     <!-- AnyChart UI -->
-    <link rel="stylesheet" href="https://cdn.anychart.com/releases/8.1.0/css/anychart-ui.min.css"/>
-    <link rel="stylesheet" href="https://cdn.anychart.com/releases/8.1.0/fonts/css/anychart-font.min.css">
+    <link rel="stylesheet" href="https://cdn.anychart.com/releases/v8/css/anychart-ui.min.css"/>
+    <!--<link rel="stylesheet" href="https://cdn.anychart.com/releases/v8/fonts/css/anychart-font.min.css">-->
+    <link rel="stylesheet" href="fonts/css/anychart-font.min.css">
 
     <!--style-->
     <link rel="stylesheet" href="css/style.css">
@@ -306,7 +307,7 @@
 
                         <button type="button" class="btn btn-default" id="annotation-label-autosize"
                                 aria-label="Auto-resize" data-toggle="tooltip" title="Auto-resize">
-                            <i class="ac ac-mouse-pointer" aria-hidden="true"></i>
+                            <i class="ac ac-enlarge" aria-hidden="true"></i>
                         </button>
 
                         <button type="button" class="btn btn-default color-picker" data-color="fontColor"
@@ -324,12 +325,13 @@
                                 title="Font settings"
                                 data-style="btn-lg" data-width="121" multiple>
                             <optgroup label="Font style" data-max-options="2">
-                                <option data-icon="ac-italic" data-label-method="fontStyle" value="italic">Italic</option>
+                                <option data-icon="ac-italic" data-label-method="fontStyle" value="italic">Italic
+                                </option>
                                 <option data-icon="ac-bold" data-label-method="fontWeight" value="bold">Bold</option>
                             </optgroup>
                             <optgroup label="Font decoration" data-max-options="1" data-label-method="fontDecoration">
                                 <option data-icon="ac-strikethrough" value="line-through">Line-through</option>
-                                <option value="overline">Overline</option>
+                                <option data-icon="ac-overline" value="overline">Overline</option>
                                 <option data-icon="ac-underline" value="underline">Underline</option>
                             </optgroup>
                             <optgroup label="Horizontal align" data-max-options="1" data-label-method="hAlign">
@@ -340,14 +342,15 @@
                                 <option data-icon="ac-position-right" value="end">End</option>
                             </optgroup>
                             <optgroup label="Anchor" data-max-options="1" data-label-method="anchor">
-                                <option value="center-bottom">Center bottom</option>
-                                <option value="center-top">Center top</option>
-                                <option value="left-bottom">Left bottom</option>
-                                <option value="left-center">Left center</option>
-                                <option value="left-top">Left top</option>
-                                <option value="right-bottom">Right bottom</option>
-                                <option value="right-center">Right center</option>
-                                <option value="right-top">Right top</option>
+                                <option data-icon="ac-anc-cb" value="center-bottom">Center bottom</option>
+                                <option data-icon="ac-anc-ct" value="center-top">Center top</option>
+                                <option data-icon="ac-anc-lb" value="left-bottom">Left bottom</option>
+                                <option data-icon="ac-anc-lc" value="left-center">Left center</option>
+                                <option data-icon="ac-anc-lt" value="left-top">Left top</option>
+                                <option data-icon="ac-anc-rb" value="right-bottom">Right bottom</option>
+                                <option data-icon="ac-anc-rc" value="right-center">Right center</option>
+                                <option data-icon="ac-anc-rt" value="right-top">Right top</option>
+                                <option data-icon="ac-anc-c" value="center">Center</option>
                             </optgroup>
                             <optgroup label="Vertical align" data-max-options="1" data-label-method="vAlign">
                                 <option data-icon="ac-position-top" value="top">Top</option>
@@ -384,12 +387,12 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.1/js/bootstrap-colorpicker.min.js"></script>
-<script src="https://cdn.anychart.com/releases/8.1.0/js/anychart-base.min.js"></script>
-<script src="https://cdn.anychart.com/releases/8.1.0/js/anychart-stock.min.js"></script>
-<script src="https://cdn.anychart.com/releases/8.1.0/js/anychart-annotations.min.js"></script>
-<script src="https://cdn.anychart.com/releases/8.1.0/js/anychart-exports.min.js"></script>
-<script src="https://cdn.anychart.com/releases/8.1.0/js/anychart-vml.min.js"></script>
-<script src="https://cdn.anychart.com/releases/8.1.0/js/anychart-ui.min.js"></script>
+<script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
+<script src="https://cdn.anychart.com/releases/v8/js/anychart-stock.min.js"></script>
+<script src="https://cdn.anychart.com/releases/v8/js/anychart-annotations.min.js"></script>
+<script src="https://cdn.anychart.com/releases/v8/js/anychart-exports.min.js"></script>
+<script src="https://cdn.anychart.com/releases/v8/js/anychart-vml.min.js"></script>
+<script src="https://cdn.anychart.com/releases/v8/js/anychart-ui.min.js"></script>
 <script src="https://cdn.anychart.com/csv-data/msft-daily-short.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
 
