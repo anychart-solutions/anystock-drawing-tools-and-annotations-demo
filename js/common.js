@@ -1,14 +1,32 @@
 (function () {
     initTooltip('bottom');
 
-    $('#select-stroke-settings').val([1,6]).selectpicker('refresh');
-
     var chart;
-    var annotationsColor;
-    $(function () {
+    var $strokeSettings = $('#select-stroke-settings');
+    var $colorPickerFill = $('.color-picker[data-color="fill"]');
+    var $colorPickerStroke = $('.color-picker[data-color="stroke"]');
+    var $annotationLabel;
+    // var $markerSize = $('#select-marker-size');
+    var $markerSize = $('.volume-btn[data-el-size="marker"]');
+    var $fontSize = $('.volume-btn[data-el-size="label"]');
+    var $markerSizeBtn = $('.select-marker-size');
+    var $fontSettings = $('#select-font-style');
 
+    var $labelMethod = $('[data-label-method]');
+
+    $(function () {
         // page UI elements
         createPageColorPicker();
+
+        // init selectpicker
+        $('.selectpicker').selectpicker({
+            iconBase: 'ac',
+            tickIcon: 'ac-check'
+        });
+
+        // init volume bars
+        // marker-size, font-size
+        initVolumeBar();
 
         // data from https://cdn.anychart.com/csv-data/msft-daily-short.js
         var data = get_msft_daily_short_data();
@@ -51,12 +69,9 @@
 
         // set chart padding
         chart.padding()
-            .right(50)
-            .left(15)
+            .right(35)
+            .left(5)
             .top(10);
-
-        // set chart margin
-        chart.margin().top(5);
 
         // add annotation items in context menu
         chart.contextMenu().itemsFormatter(contextMenuItemsFormatter);
@@ -65,14 +80,64 @@
         chart.listen('annotationDrawingFinish', onAnnotationDrawingFinish);
         chart.listen('annotationSelect', onAnnotationSelect);
         chart.listen('annotationUnSelect', function () {
-            $('.color-picker[data-color="fill"]').removeAttr('disabled');
-            $('.select-marker-size').removeAttr('disabled');
+            $colorPickerFill.removeAttr('disabled');
+            // $markerSizeBtn.removeAttr('disabled');
             $('.drawing-tools-solo').find('.bootstrap-select').each(function () {
                 $(this).removeClass('open');
             })
         });
         chart.listen('chartDraw', function () {
             hidePreloader();
+
+            var $body = $('body');
+
+            if (!$body.find('#annotation-label').length) {
+                $body.append('<textarea id="annotation-label"></textarea>');
+                $annotationLabel = $('#annotation-label');
+            }
+        });
+
+        // add textarea for label annotation and listen events
+        chart.listen('annotationDrawingFinish', function (e) {
+            if (e.annotation.type === 'label') {
+
+                $annotationLabel.val(e.annotation.text())
+                    .focus()
+                    .on('change keyup paste', function (e) {
+                        if (e.keyCode === 46) return;
+
+                        try {
+                            var annotation = chart.annotations().getSelectedAnnotation();
+                            annotation.enabled();
+                        } catch (err) {
+                            annotation = null;
+                        }
+
+                        if (annotation) {
+                            annotation.text($(this).val());
+                        }
+                    });
+
+                chart.listen('annotationDrawingFinish', function (e) {
+                    if (e.annotation.type === 'label') {
+                        $annotationLabel.val(e.annotation.text())
+                            .focus();
+                    }
+                });
+
+                chart.listen('annotationSelect', function (e) {
+                    if (e.annotation.type === 'label') {
+                        $annotationLabel.val(e.annotation.text())
+                            .focus();
+                    }
+                });
+
+                chart.listen('annotationUnselect', function () {
+                    if (e.annotation.type === 'label') {
+                        $annotationLabel.val('');
+                    }
+                });
+            }
         });
 
         // set container id for the chart
@@ -80,19 +145,81 @@
 
         // initiate chart drawing
         chart.draw();
-
     });
+
+    function initVolumeBar() {
+        $('.volume-btn').on('mouseenter', function () {
+            var self = this;
+
+            $(this).popover({
+                placement: 'bottom',
+                html: true,
+                trigger: 'manual',
+                content: function () {
+                    return '<div id="volume-popover">\n' +
+                        '     <div class="volume-bar-value text-center">' + $(this).attr('data-volume') + 'px' +
+                        '     </div>\n' +
+                        '     <input type="range" id="volume-bar" class="volume-bar" step="1" value="' + $(this).attr('data-volume') + '"' +
+                        '      min="5" max="35">\n' +
+                        '   </div>'
+                }
+            });
+
+            $(this).popover('show');
+
+            $(this).siblings('.popover').on('mouseleave', function () {
+                setTimeout(function () {
+                    if (!$('.popover:hover').length) {
+                        $(self).popover('hide')
+                    }
+                }, 100);
+            });
+        }).on('mouseleave', function () {
+            var self = this;
+
+            setTimeout(function () {
+                if (!$('.popover:hover').length) {
+                    $(self).popover('hide')
+                }
+            }, 100);
+        });
+    }
 
     function createPageColorPicker() {
         var colorPicker = $('.color-picker');
         var strokeWidth;
         var STROKE_WIDTH = 1;
-        colorPicker.colorpickerplus();
-        colorPicker.on('changeColor', function (e, color) {
+        colorPicker.colorpicker({
+            'color': '#e06666',
+            'align': 'left'
+        });
+
+        colorPicker.on('create', function () {
+            var color = $(this).data('color');
+
+            if ($(this).find('.color-fill-icon[data-color]').length) {
+                color = $(this).find('.color-fill-icon').attr('data-color');
+            }
+
+            $('.color-fill-icon', $(this)).css('background-color', color);
+        });
+
+        colorPicker.on('showPicker', function () {
+            $(this).parent('div').find('.tooltip.in').tooltip('hide');
+        });
+
+        colorPicker.on('changeColor', function () {
+            var color = $(this).data('color');
             var annotation = chart.annotations().getSelectedAnnotation();
+            var _annotation = annotation;
 
             if (annotation) {
-                switch ($(this).data('color')) {
+                if (annotation.type === 'label') {
+                    $annotationLabel.focus();
+                    annotation = annotation.background();
+                }
+
+                switch ($(this).attr('data-color')) {
                     case 'fill' :
                         annotation.fill(color);
                         break;
@@ -104,17 +231,20 @@
                             color: color,
                             dash: strokeDash
                         };
-                        annotation.stroke(settings);
-                        annotation.hovered().stroke(settings);
-                        annotation.selected().stroke(settings);
+
+                        setAnnotationStrokeSettings(annotation, settings);
+                        break;
+                    case 'fontColor':
+                        if (_annotation.type === 'label') _annotation.fontColor(color);
+                        break;
                 }
             }
 
-            if (color == null) {
+            if (color === null) {
                 $('.color-fill-icon', $(this)).addClass('colorpicker-color');
             } else {
-                $('.color-fill-icon', $(this)).removeClass('colorpicker-color');
-                $('.color-fill-icon', $(this)).css('background-color', color);
+                $('.color-fill-icon', $(this)).removeClass('colorpicker-color')
+                    .css('background-color', color);
             }
         });
     }
@@ -122,6 +252,7 @@
     function removeSelectedAnnotation() {
         var annotation = chart.annotations().getSelectedAnnotation();
         if (annotation) chart.annotations().removeAnnotation(annotation);
+
         return !!annotation;
     }
 
@@ -141,117 +272,87 @@
         var strokeDash;
         var strokeType;
         var markerSize;
-        var STROKE_WIDTH = 1;
-        // val 6 in select = 'solid'
-        var STROKE_TYPE = '6';
-        var $strokeSettings = $('#select-stroke-settings');
-        var $markerSize = $('#select-marker-size');
-        var $markerSizeBtn = $('.select-marker-size');
-        var $colorPickerFill = $('.color-picker[data-color="fill"]');
-        var $colorPickerStroke = $('.color-picker[data-color="stroke"]');
+        var fontColor;
+        var fontSize;
 
-        if (annotation.fill !== undefined) {
+        var $colorPickerFontColor = $('.color-picker[data-color="fontColor"]');
+
+        var fontSettings = [];
+
+        if (annotation.fill || annotation.background) {
             $colorPickerFill.removeAttr('disabled');
-            colorFill = annotation.fill();
+            colorFill = annotation.fill ? annotation.fill() : annotation.background().fill();
+            colorStroke = annotation.stroke ? annotation.stroke() : annotation.background().stroke();
         } else {
             $colorPickerFill.attr('disabled', 'disabled');
         }
 
-        if (typeof annotation.stroke() === 'function') {
-            colorStroke = $colorPickerStroke.find('.color-fill-icon').css('background-color');
+        if (annotation.type === 'label') {
+            $annotationLabel.focus();
+
+            fontSize = annotation.fontSize();
+
+            $fontSize.attr('data-volume', fontSize);
+
+            fontColor = annotation.fontColor();
+
+            fontSettings = [];
+
+            $labelMethod.each(function () {
+                var method = $(this).data().labelMethod;
+
+                fontSettings.push(annotation[method]());
+            });
+
+            // update font settings select
+            $fontSettings.val(fontSettings).selectpicker('refresh');
+
+            annotation = annotation.background();
+        }
+
+        if (annotation.fill && typeof annotation.fill() === 'function') {
             colorFill = $colorPickerFill.find('.color-fill-icon').css('background-color');
+        }
 
-            if (colorFill.indexOf('a') === -1) {
-                colorFill = colorFill.replace('rgb', 'rgba').replace(')', ', 0.5)');
-            }
-
-            if ($strokeSettings.val()) {
-                switch ($strokeSettings.val()[0]) {
-                    case '6' :
-                    case '7' :
-                    case '8' :
-                        strokeType = $strokeSettings.val()[0];
-                        strokeWidth = $strokeSettings.val()[1] || STROKE_WIDTH;
-                        break;
-                    default :
-                        strokeWidth = $strokeSettings.val()[0];
-                        strokeType = $strokeSettings.val()[1];
-                        break;
-                }
-            } else {
-                strokeWidth = STROKE_WIDTH;
-                strokeType = STROKE_TYPE;
-            }
-
-        } else {
+        if (colorStroke !== 'none') {
             colorStroke = annotation.stroke().color;
             strokeWidth = annotation.stroke().thickness;
             strokeDash = annotation.stroke().dash;
         }
 
-        switch (strokeType) {
-            case '6' :
-                strokeType = null;
-                break;
-            case '7' :
-                strokeType = '1 1';
-                break;
-            case '8' :
-                strokeType = '10 5';
-                break;
-        }
-
-        if (strokeType === undefined) {
-            strokeType = strokeDash;
-        }
-
         if (annotation.type === 'marker') {
             markerSize = annotation.size();
-
-            if ($('.choose-marker').hasClass('open')) {
-                $markerSize.val($markerSize.val()).selectpicker('refresh');
-                annotation.size($markerSize.val());
-                $markerSizeBtn.removeAttr('disabled')
-            } else {
-                $markerSize.removeAttr('disabled').val(markerSize).selectpicker('refresh');
-                annotation.size(markerSize);
-                $markerSizeBtn.removeAttr('disabled')
-            }
-            $markerSizeBtn.removeAttr('disabled');
-
+            $markerSize.attr('data-volume', markerSize);
         } else {
             $markerSizeBtn.attr('disabled', 'disabled');
         }
-
-        var settings = {
-            thickness: strokeWidth,
-            color: colorStroke,
-            dash: strokeType
-        };
-
-        annotation.stroke(settings);
-        annotation.hovered().stroke(settings);
-        annotation.selected().stroke(settings);
 
         if (annotation.fill !== undefined) {
             annotation.fill(colorFill);
         }
 
-        switch (strokeType) {
+        if (fontSize) {
+            evt.annotation.fontSize(fontSize);
+        }
+
+        switch (strokeDash) {
             case '1 1' :
-                strokeDash = 7;
+                strokeType = 7;
                 break;
             case '10 5' :
-                strokeDash = 8;
+                strokeType = 8;
                 break;
             default :
-                strokeDash = 6;
+                if (strokeWidth) {
+                    strokeType = 6;
+                }
                 break;
         }
 
         $colorPickerFill.find('.color-fill-icon').css('background-color', colorFill);
         $colorPickerStroke.find('.color-fill-icon').css('background-color', colorStroke);
-        $strokeSettings.val([strokeWidth, strokeDash]).selectpicker('refresh');
+        $colorPickerFontColor.find('.color-fill-icon').css('background-color', fontColor);
+        $strokeSettings.val([strokeWidth, strokeType]).selectpicker('refresh');
     }
 
     function contextMenuItemsFormatter(items) {
@@ -289,15 +390,13 @@
         }
     }
 
-    function updatePropertiesBySelectedAnnotation(strokeWidth, strokeType) {
-        var strokeColor;
+    function updatePropertiesBySelectedAnnotation(colorStroke, strokeWidth, strokeType) {
         var annotation = chart.annotations().getSelectedAnnotation();
-        if (annotation == null) return;
+        if (annotation === null) return;
 
-        if (typeof annotation.stroke() === 'function') {
-            strokeColor = annotation.color();
-        } else {
-            strokeColor = annotation.stroke().color;
+        if (annotation.type === 'label') {
+            $annotationLabel.focus();
+            annotation = annotation.background();
         }
 
         switch (strokeType) {
@@ -314,13 +413,19 @@
 
         var settings = {
             thickness: strokeWidth,
-            color: strokeColor,
+            color: colorStroke,
             dash: strokeType
         };
 
+        setAnnotationStrokeSettings(annotation, settings);
+    }
+
+    function setAnnotationStrokeSettings(annotation, settings) {
         annotation.stroke(settings);
-        annotation.hovered().stroke(settings);
-        annotation.selected().stroke(settings);
+        if (annotation.hovered || annotation.selected) {
+            annotation.hovered().stroke(settings);
+            annotation.selected().stroke(settings);
+        }
     }
 
     function hidePreloader() {
@@ -332,125 +437,278 @@
             $('[data-toggle="tooltip"]').tooltip({
                 'placement': position,
                 'animation': false
-            });
+            }).on('show.bs.tooltip', function () {
+                if ($(this).hasClass('color-picker') && $('.colorpicker-visible').length) {
+                    return false
+                }
+            })
         });
     }
 
-    $(document).ready(function () {
+    function normalizeFontSettings(val) {
+        var fontMethods = {};
 
-        $('select.choose-drawing-tools').on('change', changeAnnotations);
-        $('select.choose-marker').on('change', changeAnnotations);
-        $('[data-annotation-type]').on('click', changeAnnotations);
+        $labelMethod.each(function () {
+            fontMethods[$(this).data().labelMethod] = null;
+        });
 
-        function changeAnnotations() {
-            var $that = $(this);
+        val && val.forEach(function (item) {
+            if (item) {
+                $fontSettings.find('[data-label-method]').each(function () {
+                    var $that = $(this);
+                    var $el = $(this).find('option').length ? $(this).find('option') : $(this);
 
-            setTimeout(function () {
-                var $target = $that;
-                var active = $target.hasClass('active');
-                var $markerSize = $('#select-marker-size');
-                var markerSize = $markerSize.val();
-
-                if (active) {
-                    chart.annotations().cancelDrawing();
-                    setToolbarButtonActive(null);
-                } else {
-                    var type = $target.data().annotationType || $target.find('option:selected').data().annotationType;
-
-                    if (!$target.data().annotationType) {
-                        var markerType = $target.find('option:selected').data().markerType;
-                    }
-
-                    setToolbarButtonActive(type, markerType);
-
-                    if (type) {
-
-                        if (!$target.data().annotationType) {
-                            var markerAnchor =  $target.find('option:selected').data().markerAnchor;
+                    $el.each(function () {
+                        if ($(this).val() === item) {
+                            fontMethods[$that.attr('data-label-method')] = item;
                         }
+                    });
+                });
+            }
+        });
 
-                        var drawingSettings = {
-                            type: type,
-                            size: markerSize,
-                            color: annotationsColor,
-                            markerType: markerType,
-                            anchor: markerAnchor
-                        };
-                        chart.annotations().startDrawing(drawingSettings);
-                    }
-                }
+        return fontMethods
+    }
 
+    $(document).ready(function () {
+            $('select.choose-drawing-tools').on('change', changeAnnotations);
+            $('select.choose-marker').on('change', changeAnnotations);
+            $('[data-annotation-type]').on('click', changeAnnotations);
+
+            $('#annotation-label-autosize').on('click', function () {
                 var annotation = chart.annotations().getSelectedAnnotation();
 
-                if (annotation.fill === undefined) {
-                    $('.color-picker[data-color="fill"]').attr('disabled', 'disabled');
-                } else {
-                    $('.color-picker[data-color="fill"]').removeAttr('disabled');
+                if (annotation && annotation.type === 'label') {
+                    annotation.width(null);
+                    annotation.height(null);
                 }
-				
-				$target.val('');
-            }, 1);
-        }
 
-        $('.btn[data-action-type]').click(function (evt) {
-            var annotation = chart.annotations().getSelectedAnnotation();
-            var $target = $(evt.currentTarget);
-            $target.blur();
-            var type = $target.attr('data-action-type');
+                setToolbarButtonActive(null);
 
-            switch (type) {
-                case 'removeAllAnnotations':
-                    removeAllAnnotation();
-                    break;
-                case 'removeSelectedAnnotation' :
+                $annotationLabel.focus();
+            });
+
+            function changeAnnotations() {
+                var $that = $(this);
+
+                setTimeout(function () {
+                    var $target = $that;
+                    var active = $target.hasClass('active');
+                    var markerSize = $markerSize.attr('data-volume');
+                    var fontSize = $fontSize.attr('data-volume');
+                    var fontColor = $('[data-color="fontColor"]').find('.color-fill-icon').css('background-color');
+
+                    var colorFill = $colorPickerFill.find('.color-fill-icon').css('background-color');
+                    var colorStroke = $colorPickerStroke.find('.color-fill-icon').css('background-color');
+
+                    var strokeType;
+                    var strokeWidth;
+                    var strokeDash;
+                    var STROKE_WIDTH = 1;
+
+                    if ($strokeSettings.val()) {
+                        switch ($strokeSettings.val()[0]) {
+                            case '6' :
+                            case '7' :
+                            case '8' :
+                                strokeType = $strokeSettings.val()[0];
+                                strokeWidth = $strokeSettings.val()[1] || STROKE_WIDTH;
+                                break;
+                            default :
+                                strokeWidth = $strokeSettings.val()[0];
+                                strokeType = $strokeSettings.val()[1];
+                                break;
+                        }
+                    }
+
+                    switch (strokeType) {
+                        case '6' :
+                            strokeDash = null;
+                            break;
+                        case '7' :
+                            strokeDash = '1 1';
+                            break;
+                        case '8' :
+                            strokeDash = '10 5';
+                            break;
+                    }
+
+                    var strokeSettings = {
+                        thickness: strokeWidth,
+                        color: colorStroke,
+                        dash: strokeDash
+                    };
+
+                    var fontSettings = normalizeFontSettings($fontSettings.val());
+
+                    if (active) {
+                        chart.annotations().cancelDrawing();
+                        setToolbarButtonActive(null);
+                    } else {
+                        var type = $target.data().annotationType || $target.find('option:selected').data().annotationType;
+
+                        if (!$target.data().annotationType) {
+                            var markerType = $target.find('option:selected').data().markerType;
+                        }
+
+                        setToolbarButtonActive(type, markerType);
+
+                        if (type) {
+
+                            if (!$target.data().annotationType) {
+                                var markerAnchor = $target.find('option:selected').data().markerAnchor;
+                            }
+
+                            var drawingSettings = {
+                                type: type,
+                                size: markerSize,
+                                markerType: markerType,
+                                anchor: markerAnchor,
+                                fontSize: fontSize,
+                                fontColor: fontColor
+                            };
+
+                            $.extend(drawingSettings, fontSettings);
+
+                            if (type === 'label') {
+                                drawingSettings.anchor = fontSettings.anchor;
+
+                                drawingSettings.background = {
+                                    fill: colorFill,
+                                    stroke: strokeSettings
+                                };
+                                drawingSettings.hovered = {
+                                    background: {
+                                        stroke: strokeSettings
+                                    }
+                                };
+                                drawingSettings.selected = {
+                                    background: {
+                                        stroke: strokeSettings
+                                    }
+                                };
+                            } else {
+                                drawingSettings.fill = colorFill;
+                                drawingSettings.stroke = strokeSettings;
+                                drawingSettings.hovered = {
+                                    stroke: strokeSettings
+                                };
+                                drawingSettings.selected = {
+                                    stroke: strokeSettings
+                                };
+                            }
+
+                            chart.annotations().startDrawing(drawingSettings);
+                        }
+                    }
+
+                    var annotation = chart.annotations().getSelectedAnnotation();
+
+                    if (annotation.fill || annotation.background) {
+                        $colorPickerFill.removeAttr('disabled');
+                    } else {
+                        $colorPickerFill.attr('disabled', 'disabled');
+                    }
+
+                    $target.val('');
+                }, 1);
+            }
+
+            $('.btn[data-action-type]').click(function (evt) {
+                var annotation = chart.annotations().getSelectedAnnotation();
+                var $target = $(evt.currentTarget);
+                $target.blur();
+                var type = $target.attr('data-action-type');
+
+                switch (type) {
+                    case 'removeAllAnnotations':
+                        removeAllAnnotation();
+                        break;
+                    case 'removeSelectedAnnotation' :
+                        removeSelectedAnnotation();
+                        break;
+                    case 'unSelectedAnnotation' :
+                        chart.annotations().unselect(annotation).cancelDrawing();
+                        setToolbarButtonActive(null);
+                        break;
+                }
+
+            });
+
+            $strokeSettings.on('change', function () {
+                var strokeWidth;
+                var strokeType;
+                var STROKE_WIDTH = 1;
+                var colorStroke = $colorPickerStroke.find('.color-fill-icon').css('background-color');
+
+                if ($(this).val()) {
+                    switch ($(this).val()[0]) {
+                        case '6' :
+                        case '7' :
+                        case '8' :
+                            strokeType = $(this).val()[0];
+                            strokeWidth = $(this).val()[1] || STROKE_WIDTH;
+                            break;
+                        default :
+                            strokeType = $(this).val()[1];
+                            strokeWidth = $(this).val()[0];
+                            break;
+                    }
+
+                    updatePropertiesBySelectedAnnotation(colorStroke, strokeWidth, strokeType);
+                }
+            });
+
+            $markerSize.on('change', function () {
+                var annotation = chart.annotations().getSelectedAnnotation();
+
+                if (annotation && annotation.type === 'marker') {
+                    annotation.size($(this).val());
+                }
+            });
+
+            $('body').on('change', '.volume-bar', function () {
+                var annotation = chart.annotations().getSelectedAnnotation();
+
+                var $popover = $(this).closest('.popover');
+
+                $popover.prev('.volume-btn')
+                    .attr('data-volume', $(this).val());
+
+                $popover.find('.volume-bar-value').text($(this).val() + 'px');
+
+                if (annotation && annotation.type === 'label' &&
+                    $popover.prev('.volume-btn').attr('data-el-size') === 'label') {
+                    annotation.fontSize($(this).val());
+                    $annotationLabel.focus();
+                } else if (annotation && annotation.type === 'marker' &&
+                    $popover.prev('.volume-btn').attr('data-el-size') === 'marker') {
+                    annotation.size($(this).val());
+                }
+            });
+
+            $fontSettings.on('change', function () {
+                var annotation = chart.annotations().getSelectedAnnotation();
+
+                if (annotation && annotation.type === 'label') {
+
+                    var fontSettings = normalizeFontSettings($(this).val());
+
+                    $labelMethod.each(function () {
+                        var method = $(this).data().labelMethod;
+
+                        annotation[method](fontSettings[method]);
+                    });
+
+                    $annotationLabel.focus();
+                }
+            });
+
+            $('html').keyup(function (e) {
+                if (e.keyCode === 46) {
                     removeSelectedAnnotation();
-                    break;
-                case 'unSelectedAnnotation' :
-                    chart.annotations().unselect(annotation).cancelDrawing();
-                    setToolbarButtonActive(null);
-                    break;
-            }
-
-        });
-
-        $('#select-stroke-settings').on('change', function () {
-            var strokeWidth;
-            var strokeType;
-            var STROKE_WIDTH = 1;
-
-            if ($(this).val()) {
-                switch ($(this).val()[0]) {
-                    case '6' :
-                    case '7' :
-                    case '8' :
-                        strokeType = $(this).val()[0];
-                        strokeWidth = $(this).val()[1] || STROKE_WIDTH;
-                        break;
-                    default :
-                        strokeType = $(this).val()[1];
-                        strokeWidth = $(this).val()[0];
-                        break;
                 }
-                updatePropertiesBySelectedAnnotation(strokeWidth, strokeType);
-            }
-        });
-
-        $('#select-marker-size').on('change', function () {
-            var annotation = chart.annotations().getSelectedAnnotation();
-
-            if (annotation == null) return;
-
-            if (annotation.type === 'marker') {
-                annotation.size($(this).val());
-            }
-        });
-
-
-        $('html').keyup(function (e) {
-            if (e.keyCode == 8 || e.keyCode == 46) {
-                removeSelectedAnnotation();
-            }
-        })
-    });
-
+            })
+        }
+    );
 })();
