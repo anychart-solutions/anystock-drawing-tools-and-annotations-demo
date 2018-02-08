@@ -90,9 +90,12 @@
             hidePreloader();
 
             var $body = $('body');
+            var $textArea = '<textarea id="annotation-label"></textarea>';
 
             if (!$body.find('#annotation-label').length) {
-                $body.append('<textarea id="annotation-label"></textarea>');
+                $body.find('[data-annotation-type="label"]').length ?
+                    $body.find('[data-annotation-type="label"]').after($textArea) :
+                    $body.append($textArea);
                 $annotationLabel = $('#annotation-label');
             }
         });
