@@ -117,7 +117,7 @@
                         }
 
                         if (annotation) {
-                            annotation.text($(this).val());
+                            $(this).val() ? annotation.text($(this).val()) : annotation.text(' ') && $(this).val(' ');
                         }
                     });
 
