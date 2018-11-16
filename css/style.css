@@ -38,7 +38,7 @@ html, body {
 }
 
 #chart-container {
-    height: 100%;
+    height: 550px;
 }
 
 #annotation-label {
